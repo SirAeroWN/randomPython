@@ -93,26 +93,16 @@ class calc(Queue): # super class is stack so I don't have to make a stack object
 		self.new = True
 		return
 
-	def enter(self): # add number in display to stack
-		if self.new == False: # if the number isn't a new one then don't add it to the stack
-			floatBool = True # assume it's a float
-			localDisplayVal = self.displayVal # get the displayVal and store it in a local variable
-			if localDisplayVal[len(localDisplayVal) - 1] == '.': # check to see if it ends in a .
-				localDisplayVal = localDisplayVal + '0' # if it does, append a zero so it's treated as a float
-			elif '.' not in localDisplayVal: # if it doesn't have a . we'll treat it as an int
-				floatBool = False
-			if floatBool: # if it is a float, add to stack as float
-				valToPush = float(localDisplayVal)
-			else:
-				valToPush = int(localDisplayVal) # otherwise we add to stack as an int
-			self.push(valToPush) # add to stack
-			self.new = True # next number entered will replace current display number
+	def enter(self): # calculate stuff off the queue
+		listy = []
+		for i in range(self.size):
+			listy.append(self.dequeue())
 		return
 
 	def addToDisplay(self, num): # method to change the display
 		self.displayVal = self.displayVal + num # otherwise append the number to what is already there
 		self.display['text'] = self.displayVal # update what is in the display
-		if num == '*' or num == '/' or num == '+' or num == '-':
+		if num != '*' or num != '/' or num != '+' or num != '-':
 			self.number += num
 		return
 
@@ -137,36 +127,43 @@ class calc(Queue): # super class is stack so I don't have to make a stack object
 		return
 
 	def multiply(self): # multipy operator
-		self.addToDisplay('*')
 		if '.' in self.number:
 			self.enqueue(float(self.number))
 		else:
 			self.enqueue(int(self.number))
+		self.addToDisplay('*')
 		self.enqueue('*')
+		self.number = ''
 		return
 
 	def divide(self): # division operator
-		self.addToDisplay('/')
 		if '.' in self.number:
 			self.enqueue(float(self.number))
 		else:
 			self.enqueue(int(self.number))
+		self.addToDisplay('/')
+		self.enqueue('/')
+		self.number = ''
 		return
 
 	def add(self): # addition operator
-		self.addToDisplay('+')
 		if '.' in self.number:
 			self.enqueue(float(self.number))
 		else:
 			self.enqueue(int(self.number))
+		self.addToDisplay('+')
+		self.enqueue('+')
+		self.number = ''
 		return
 
 	def subtract(self): # subtraction operator
-		self.addToDisplay('-')
 		if '.' in self.number:
 			self.enqueue(float(self.number))
 		else:
 			self.enqueue(int(self.number))
+		self.addToDisplay('-')
+		self.enqueue('-')
+		self.number = ''
 		return
 
 pole = calc() # start the calculator

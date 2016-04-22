@@ -79,5 +79,12 @@ def printCAll(l):
 # S = [[4,5],[4,6],[6,4],[5,5]]
 # printCross(circle(S, invertRelation(S)))
 
-T = [[1,2], [2,3], [1,3], [3,2], [2,1], [3,1]]
-printCross(invertRelation(T))
+# T = [[1,2], [2,3], [1,3], [3,2], [2,1], [3,1]]
+# printCross(invertRelation(T))
+
+a = [0, 1]
+b = [1,2,3]
+c = [1,2,3,4]
+
+#printCross(cross(b,b))
+printCross(cross(c,c))

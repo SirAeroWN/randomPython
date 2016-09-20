@@ -1,3 +1,5 @@
+# finds roots
+
 def get(letter):
 	string = letter + ' = '
 	imp = input(string)

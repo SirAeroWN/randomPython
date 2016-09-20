@@ -1,3 +1,8 @@
+
+####################
+### NOT FINISHED ###
+####################
+
 #This program accepts an alphanumeric string and lets you know an estimate of how long it would take to brute force it
 #It then asks if you would like to try to brute force it
 

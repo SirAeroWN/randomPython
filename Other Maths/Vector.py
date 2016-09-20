@@ -1,6 +1,7 @@
 #This is to be a library for vectors
 #It is and will be limited
 #There are better alternitives that you should probably use
+##Definitely an over ambitous project without a clear goal or purpose...
 
 class Vector:
 	def __init__(self, size):

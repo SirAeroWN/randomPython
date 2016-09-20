@@ -167,4 +167,3 @@ class calc(Queue): # super class is stack so I don't have to make a stack object
 		return
 
 pole = calc() # start the calculator
-# wanted to find a way to use calc.exe but couldn't :(

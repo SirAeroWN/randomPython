@@ -1,3 +1,8 @@
+
+####################
+### NOT FINISHED ###
+####################
+
 def simplify(number):
 	global inside
 	inside = number

@@ -25,12 +25,14 @@ def decrypt(C, D, P, Q):
 
 # encodes character using simple cipher where a=1, b=2, ..., z=26 with special char ♥=27 and space=28
 def encode(c):
-	return ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "♥", " "].index(c) + 1
+	#return ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "♥", " "].index(c) + 1
+	return ord(c)
 
 # opposite of encode
 #### ^ breaking all the boundries, man
 def decode(c):
-	return ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "♥", " "][int(c - 1)]
+	#return ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "♥", " "][int(c - 1)]
+	return chr(c)
 
 # brute force factoring algorithim, could probably improve speed using list of primes but I'll wait to check performance on calc
 def factor(n):
@@ -44,12 +46,23 @@ def factor(n):
 		i += 1
 	return factors
 
+# test if numbers are co-prime, return true or false
+def coprime(a, b):
+	afactors = factor(a)
+	bfactors = factor(b)
+	for f in afactors:
+		if f in bfactors:
+			return False
+	return True
+
 # get p and q from user, if they only have pq, then factor it into p and q
 def getPQ():
 	p = input("P[blank for PQ]: ")
 	if p == "":
 		PQ = int(input("PQ: "))
 		p, q = findPQ(PQ)
+		print("P =", p)
+		print("Q =", q)
 	else:
 		p = int(p)
 		q = int(input("Q: "))
@@ -61,7 +74,7 @@ def getText():
 	C = []
 
 	for c in S:
-		C.append(encode(c.lower()))
+		C.append(encode(c))
 	return C
 
 # get user ciphered text, return properly formatted
@@ -89,7 +102,7 @@ def eANDd_t(p, q, e, d):
 		C.append(encrypt(c, e, p, q))		# append to list to store for decrypting
 
 	for c in C:
-		print(decode(decrypt(c, d, p, q)).upper(), end="")			# decode after decrypting
+		print(decode(decrypt(c, d, p, q)), end="")			# decode after decrypting
 	print()
 
 def eANDd_c(p, q, e, d):
@@ -107,6 +120,8 @@ def eANDd_c(p, q, e, d):
 # get p, q, e and compute d
 p, q = getPQ()
 e = int(input("E: "))
+if not coprime(e, (p - 1)*(q - 1)):
+	print("E not valid")
 d = int(findD(p, q, e))
 print("d is =", d)
 
@@ -158,4 +173,4 @@ elif mode == "b":
 	elif mode == "c":
 		# handle cipher
 		eANDd_c(p, q, e, d)
-print()
+print("done")
